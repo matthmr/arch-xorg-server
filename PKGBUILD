@@ -35,6 +35,7 @@ makedepends=('xorgproto' 'pixman' 'libx11' 'mesa' 'mesa-libgl' 'xtrans'
 source=(https://xorg.freedesktop.org/releases/individual/xserver/${pkgbase}-${pkgver}.tar.xz{,.sig}
         xvfb-run # with updates from FC master
         xvfb-run.1
+        nosoy.patch # disable soy
 )
 validpgpkeys=('3C2C43D9447D5938EF4551EBE23B7E70B467F0BF'  # Peter Hutterer (Who-T) <office@who-t.net>
               '67DC86F2623FC5FD4BB5225D14706DBE1E4B4540'  # Olivier Fourdan <fourdan@xfce.org>
@@ -42,10 +43,13 @@ validpgpkeys=('3C2C43D9447D5938EF4551EBE23B7E70B467F0BF'  # Peter Hutterer (Who-
 sha512sums=('ad5edacbe8c7e2ebe6b4a690af94c7ea5ebc781d00b0e58ae2d273c78ceee2fa00b86d10479ad69da1b3233490619bae5a33db64c967c24bbfc5d5d39ddce1cb'
             'SKIP'
             '672375cb5028ba9cda286e317d17bd8c9a9039483e7f79c21f223fd08ba07655729e9f59a082f4b8f5d8de45a77a9e9affce1002fb8c6657e26ef1a490654e49'
-            'de5e2cb3c6825e6cf1f07ca0d52423e17f34d70ec7935e9dd24be5fb9883bf1e03b50ff584931bd3b41095c510ab2aa44d2573fd5feaebdcb59363b65607ff22')
+            'de5e2cb3c6825e6cf1f07ca0d52423e17f34d70ec7935e9dd24be5fb9883bf1e03b50ff584931bd3b41095c510ab2aa44d2573fd5feaebdcb59363b65607ff22'
+            'SKIP')
 
 prepare() {
   cd ${pkgbase}-$pkgver
+
+  patch -Np1 -i ../nosoy.patch
 }
 
 build() {
@@ -64,13 +68,14 @@ build() {
     -D xorg=true \
     -D xephyr=true \
     -D glamor=true \
-    -D udev=true \
     -D dtrace=false \
-    -D systemd_logind=true \
     -D suid_wrapper=true \
     -D xkb_dir=/usr/share/X11/xkb \
     -D xkb_output_dir=/var/lib/xkb \
     -D libunwind=true
+
+  #-D udev=true \
+  #-D systemd_logind=true \
 
   # Print config
   meson configure build
