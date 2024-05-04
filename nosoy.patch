@@ -1,0 +1,26 @@
+diff --git a/hw/xfree86/common/xf86Init.c b/hw/xfree86/common/xf86Init.c
+index 5695e71..7f54d68 100644
+--- a/hw/xfree86/common/xf86Init.c
++++ b/hw/xfree86/common/xf86Init.c
+@@ -338,8 +338,8 @@ InitOutput(ScreenInfo * pScreenInfo, int argc, char **argv)
+         if (xf86DoShowOptions)
+             DoShowOptions();
+ 
+-        dbus_core_init();
+-        systemd_logind_init();
++        // dbus_core_init();
++        // systemd_logind_init();
+ 
+         /* Do a general bus probe.  This will be a PCI probe for x86 platforms */
+         xf86BusProbe();
+@@ -847,8 +847,8 @@ ddxGiveUp(enum ExitCode error)
+     if (xorgHWOpenConsole)
+         xf86CloseConsole();
+ 
+-    systemd_logind_fini();
+-    dbus_core_fini();
++    // systemd_logind_fini();
++    // dbus_core_fini();
+ 
+     xf86CloseLog(error);
+ }
