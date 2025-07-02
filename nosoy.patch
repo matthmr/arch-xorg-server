@@ -1,5 +1,5 @@
 diff --git a/hw/xfree86/common/xf86Init.c b/hw/xfree86/common/xf86Init.c
-index 5695e71..7f54d68 100644
+index 5695e71ac..7f54d680b 100644
 --- a/hw/xfree86/common/xf86Init.c
 +++ b/hw/xfree86/common/xf86Init.c
 @@ -338,8 +338,8 @@ InitOutput(ScreenInfo * pScreenInfo, int argc, char **argv)
